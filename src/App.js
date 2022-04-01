@@ -16,9 +16,7 @@ function App() {
   };
 
   const handleInput =(e)=>{
-
     setName(e.target.value);
-
   }
 
 
@@ -59,10 +57,80 @@ function App() {
       <p>name : {name}</p>
 
 
+      <br />
 
+      <TimeButton/>
 
     </div>
   );
 }
+
+
+const TimeButton = () => {
+
+
+  const [showTimer, setShowTimer] = useState(false);
+
+  return (
+    <div>
+      <h1>TimeButton</h1>
+
+
+      {/* 🍀🦄 js0344
+        showTimer = false
+
+        🍉 js0344-10
+        showTimer가 true일때, <Timer/>렌더링
+
+        🍉 js0344-20
+        showTimer 가 false 일때 --> true로 set
+
+        showTimer 가 true 일때 --> false로 set    
+    */}
+
+      {showTimer && <Timer/>}
+
+      {/*  js0344-20 */}
+      <button onClick={()=>{ setShowTimer(!showTimer)}}>toggle timer</button>
+    </div>
+
+  )
+}
+
+
+
+
+
+
+// 🍀 js0320. ready. setInterval
+// js0344
+const Timer = () => {
+
+
+  useEffect(() => {
+    
+    // 🦄 <timer/> component가 시작(mount)될때 실행됨
+    const timer = setInterval(()=>{
+      console.log('timer ticktok')
+    },1000);
+  
+    // 🦄 <timer/> component가 unmount될때 실행됨 
+    return () => {
+      clearInterval(timer);
+      console.log('timer stop')
+      
+    }
+  }, [])
+  
+
+  return (
+    <div>
+      <h2>Timer start</h2>
+      <p>check console</p>
+    </div>
+  )
+}
+
+
 
 export default App;
